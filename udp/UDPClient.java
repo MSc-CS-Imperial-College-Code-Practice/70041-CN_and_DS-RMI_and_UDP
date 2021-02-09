@@ -30,6 +30,7 @@ public class UDPClient {
 
 		try {
 			serverAddr = InetAddress.getByName(args[0]);
+
 		} catch (UnknownHostException e) {
 			System.out.println("Bad server address in UDPClient, " + args[0] + " caused an unknown host exception " + e);
 			System.exit(-1);
@@ -61,8 +62,7 @@ public class UDPClient {
 		for(int i=0; i<countTo;i++){
 			MessageInfo clientPacket = new MessageInfo(countTo,i);
 			String messageToSend = new String();
-			messageToSend = "Message nº" + String.valueOf(i) + "/o" 
-							+ String.valueOf(countTo);
+			messageToSend = "Message #" + String.valueOf(i) + "/o" + String.valueOf(countTo);
 			send(messageToSend, serverAddr, recvPort);
 		}
 	}

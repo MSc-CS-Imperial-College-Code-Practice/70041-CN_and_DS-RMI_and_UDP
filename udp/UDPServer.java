@@ -93,7 +93,7 @@ public class UDPServer {
 		
 		}	
 		
-		System.out.println("Closing connection...")
+		System.out.println("Closing connection...");
 		this.close = true;
 	}
 
