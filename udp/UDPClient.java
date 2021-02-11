@@ -59,8 +59,8 @@ public class UDPClient {
 		for(int i=0; i<countTo;i++){
 			MessageInfo clientPacket = new MessageInfo(countTo,i);
 			String messageToSend = new String();
-			messageToSend = "Message #" + String.valueOf(i) + "/o" + String.valueOf(countTo);
-			send(messageToSend, serverAddr, recvPort);
+			messageToSend = String.valueOf(i) + ";" + String.valueOf(countTo);
+			this.send(messageToSend, serverAddr, recvPort);
 		}
 	}
 
@@ -72,7 +72,8 @@ public class UDPClient {
 		// TO-DO: build the datagram packet and send it to the server
 		
 		pktData = payload.getBytes();
-		pkt = new DatagramPacket(pktData, pktData.length, destAddr, destPort);
+		payloadSize = pktData.length;
+		pkt = new DatagramPacket(pktData, payloadSize, destAddr, destPort);
 		
 		try {
 			this.sendSoc.send(pkt);
