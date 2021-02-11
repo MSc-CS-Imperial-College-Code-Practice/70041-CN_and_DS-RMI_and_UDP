@@ -59,7 +59,7 @@ public class UDPClient {
 		for(int i=0; i<countTo;i++){
 			MessageInfo clientPacket = new MessageInfo(countTo,i);
 			String messageToSend = new String();
-			messageToSend = String.valueOf(i) + ";" + String.valueOf(countTo);
+			messageToSend = String.valueOf(countTo) + ";" + String.valueOf(i);
 			this.send(messageToSend, serverAddr, recvPort);
 		}
 	}
