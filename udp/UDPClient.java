@@ -56,7 +56,7 @@ public class UDPClient {
 		int tries = 0;
 
 		// TO-DO: Send the messages to the server
-		for(int i=1; i<countTo;i++){
+		for(int i=1; i<=countTo;i++){
 			MessageInfo clientPacket = new MessageInfo(countTo,i);
 			String messageToSend = new String();
 			messageToSend = String.valueOf(countTo) + ";" + String.valueOf(i);
