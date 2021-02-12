@@ -82,8 +82,7 @@ public class UDPServer {
 		// any missing messages
 
 		int missedMessagesCounter = 0;
-		System.out.println(msg.messageNum);
-		System.out.println(this.totalMessages);
+		System.out.println(msg.messageNum + " | " + this.totalMessages);
 		if(msg.messageNum == this.totalMessages) {
 			for(int i=0; i<this.totalMessages; i++) {
 				if(this.receivedMessages[i] == 0) {
@@ -92,8 +91,8 @@ public class UDPServer {
 			}
 		
 			System.out.println("Messages sent: " + this.totalMessages);
-			System.out.println("Received messages: " + missedMessagesCounter);
-			System.out.println("Missed messages: " + (this.totalMessages - missedMessagesCounter));
+			System.out.println("Missed messages: " + missedMessagesCounter);
+			System.out.println("Received messages: " + (this.totalMessages - missedMessagesCounter));
 		
 			System.out.println("Closing connection...");
 			this.close = true;
