@@ -67,8 +67,6 @@ public class UDPServer {
 
 		// TO-DO: On receipt of first message, initialise the receive buffer
 		if(this.receivedMessages == null) {
-			System.out.println(msg.totalMessages);
-			
 			this.totalMessages = msg.totalMessages;
 			this.receivedMessages = new int[this.totalMessages];
 			Arrays.fill(this.receivedMessages, 0);  // Init array with zeros 
@@ -82,6 +80,8 @@ public class UDPServer {
 		// any missing messages
 
 		int missedMessagesCounter = 0;
+		System.out.println(msg.messageNum);
+		System.out.println(this.totalMessages);
 		if(msg.messageNum == this.totalMessages) {
 			for(int i=0; i<this.totalMessages; i++) {
 				if(this.receivedMessages[i] == 0) {
