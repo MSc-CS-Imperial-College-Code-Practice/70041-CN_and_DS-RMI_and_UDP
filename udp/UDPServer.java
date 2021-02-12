@@ -34,11 +34,14 @@ public class UDPServer {
 			pacData = new byte[1024];
 			pacSize = pacData.length;
 			
+			int i = 1;
 			while(!this.close){
+				System.out.println("Counting... " + i);
 				pac = new DatagramPacket(pacData, pacSize);
 				recvSoc.receive(pac);
 				String data = new String(pac.getData()).trim();
-				processMessage(data);	
+				processMessage(data);
+				i++;
 			}
 			
 		} catch(SocketException e) {
