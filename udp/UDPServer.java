@@ -38,10 +38,7 @@ public class UDPServer {
 			while(!this.close){
 				pac = new DatagramPacket(pacData, pacSize);
 				recvSoc.receive(pac);
-				System.out.println("Counting... " + i);
-				System.out.println(pac.getData());
 				String data = new String(pac.getData()).trim();
-				System.out.println(data);
 				processMessage(data);
 				i++;
 			}
