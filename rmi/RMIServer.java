@@ -86,7 +86,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 			LocateRegistry.createRegistry(8080).rebind(serverURL, server);
 		} catch (Exception e) {
 			System.out.println("Registry binding error: " + e.getMessage());
-			System.out.println(e.printStackTrace());
+			System.out.println(e.printStackTrace();
 		}
 		
 	}
