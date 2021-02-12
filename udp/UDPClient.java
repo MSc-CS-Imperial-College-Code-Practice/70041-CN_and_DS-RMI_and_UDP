@@ -61,6 +61,7 @@ public class UDPClient {
 			String messageToSend = new String();
 			messageToSend = clientPacket.toString();
 			this.send(messageToSend, serverAddr, recvPort);
+			System.out.println("Client message sending: "+messageToSend);
 		}
 	}
 
@@ -81,5 +82,5 @@ public class UDPClient {
 		} catch(IOException e) {
 			System.out.println("Error in sending client message: " + e.getMessage());
 		}
-	}
+	}the
 }
