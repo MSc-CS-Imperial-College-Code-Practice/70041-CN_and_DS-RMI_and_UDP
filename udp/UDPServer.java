@@ -77,7 +77,7 @@ public class UDPServer {
 
 		// TO-DO: Log receipt of the message
 		this.receivedMessages[msg.messageNum-1] = 1; // 1 - Received Message
-											    // 0 - Unreceived Message
+											         // 0 - Unreceived Message
 
 		// TO-DO: If this is the last expected message, then identify
 		// any missing messages
