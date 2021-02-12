@@ -82,5 +82,5 @@ public class UDPClient {
 		} catch(IOException e) {
 			System.out.println("Error in sending client message: " + e.getMessage());
 		}
-	}the
+	}
 }
