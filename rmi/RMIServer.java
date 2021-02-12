@@ -64,9 +64,10 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// TO-DO: Bind to RMI registry
 		try {
 			rmiServer = new RMIServer();
-			rebindServer("RMIServerI", rmiServer);
+			String urlServer = new String("rmi://" + "localhost" + "/RMIServer");
+			rebindServer(urlServer, rmiServer);
 		} catch(Exception e) {
-			System.out.println("RMIServerI binding error");
+			System.out.println("RMIServer binding error");
 		}
 		
 	}
