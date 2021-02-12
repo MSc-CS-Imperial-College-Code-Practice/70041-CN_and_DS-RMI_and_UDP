@@ -31,7 +31,7 @@ public class UDPServer {
 		try {
 			
 			recvSoc.setSoTimeout(30000);
-			pacData = new byte[512];
+			pacData = new byte[1024];
 			pacSize = pacData.length;
 			
 			int i = 1;
@@ -39,6 +39,8 @@ public class UDPServer {
 				pac = new DatagramPacket(pacData, pacSize);
 				recvSoc.receive(pac);
 				String data = new String(pac.getData()).trim();
+				System.out.println("Loop..." + i);
+				System.out.println("Data Received:" + data);
 				processMessage(data);
 				i++;
 			}
