@@ -41,8 +41,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 			}
 		
 			System.out.println("Messages sent: " + this.totalMessages);
-			System.out.println("Received messages: " + missedMessagesCounter);
-			System.out.println("Missed messages: " + (this.totalMessages - missedMessagesCounter));
+			System.out.println("Missed messages: " + missedMessagesCounter);
+			System.out.println("Received messages: " + (this.totalMessages - missedMessagesCounter));
 		
 		}	
 		
@@ -67,7 +67,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 			String urlServer = new String("rmi://" + "localhost" + "/RMIServer");
 			rebindServer(urlServer, rmiServer);
 		} catch(Exception e) {
-			System.out.println("RMIServer binding error");
+			System.out.println("RMIServer binding error " + e.getMessage());
 		}
 		
 	}
@@ -85,7 +85,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		try {
 			LocateRegistry.createRegistry(8080).rebind(serverURL, server);
 		} catch (Exception e) {
-			System.out.println("Registry binding error");
+			System.out.println("Registry binding error " + e.getMessage());
 		}
 		
 	}
