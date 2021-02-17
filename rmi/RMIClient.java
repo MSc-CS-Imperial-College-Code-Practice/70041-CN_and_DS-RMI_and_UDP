@@ -31,7 +31,7 @@ public class RMIClient {
 		}
 		// TO-DO: Bind to RMIServer
 		try {
-			iRMIServer = (RMIServerI) Naming.lookup(urlServer);
+			iRMIServer = (RMIServerI) Naming.lookup(urlServer); //error here
 
 		// TO-DO: Attempt to send messages the specified number of times
 		

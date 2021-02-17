@@ -49,8 +49,6 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		System.out.println("Closing connection...");
 	}
 	
-
-
 	public static void main(String[] args) {
 
 		RMIServer rmiServer = null;
@@ -65,7 +63,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		try {
 			rmiServer = new RMIServer();
 			String urlServer = new String("rmi://" + "localhost" + "/RMIServer");
-			rebindServer(urlServer, rmiServer);
+			rebindServer(urlServer, rmiServer); //error here
 		} catch(Exception e) {
 			System.out.println("RMIServer binding error: " + e.getMessage());
 		}

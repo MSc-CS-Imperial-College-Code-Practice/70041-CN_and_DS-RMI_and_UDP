@@ -39,9 +39,9 @@ public class UDPServer {
 				pac = new DatagramPacket(pacData, pacSize);
 				recvSoc.receive(pac);
 				String data = new String(pac.getData()).trim();
-				System.out.println("Iteration..." + i);
-				System.out.println("Packet..." + pac.getData());
-				System.out.println("Data Received: " + data);
+				//System.out.println("Iteration..." + i);
+				//System.out.println("Packet..." + pac.getData());
+				//System.out.println("Data Received: " + data);
 				processMessage(data);
 				i++;
 			}
