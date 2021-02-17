@@ -31,7 +31,7 @@ public class UDPServer {
 		try {
 			
 			recvSoc.setSoTimeout(30000);
-			pacData = new byte[1];
+			pacData = new byte[10];
 			pacSize = pacData.length;
 			
 			int i = 1;
@@ -93,10 +93,12 @@ public class UDPServer {
 				}
 			}
 		
-			System.out.println("Messages sent: " + this.totalMessages);
-			System.out.println("Missed messages: " + missedMessagesCounter);
-			System.out.println("Received messages: " + (this.totalMessages - missedMessagesCounter));
-		
+			//System.out.println("Messages sent: " + this.totalMessages);
+			//System.out.println("Missed messages: " + missedMessagesCounter);
+			//System.out.println("Received messages: " + (this.totalMessages - missedMessagesCounter));
+			System.out.print("Received: " + this.totalMessages + "/" + msg.totalMessages);
+			System.out.println(" ("+(((double)this.totalMessages)*100/msg.totalMessages)+"%)");
+
 			System.out.println("Closing connection...");
 			this.close = true;
 		

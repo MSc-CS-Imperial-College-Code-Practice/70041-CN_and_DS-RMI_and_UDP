@@ -45,7 +45,7 @@ public class UDPClient {
 	public UDPClient() {
 		// TO-DO: Initialise the UDP socket for sending data
 		try{
-			this.sendSoc = new DatagramSocket(1234);
+			this.sendSoc = new DatagramSocket();
 		} catch(SocketException e) {
 			System.out.println("Error in client socket: " + e.getMessage());
 		}
@@ -61,7 +61,6 @@ public class UDPClient {
 			String messageToSend = new String();
 			messageToSend = clientPacket.toString();
 			this.send(messageToSend, serverAddr, recvPort);
-			System.out.println("Client message sending: "+messageToSend);
 		}
 	}
 
