@@ -63,16 +63,18 @@ public class UDPServer {
 		}
 
 
-		System.out.print("Received messages are: ");
+		System.out.print("Received messages are: [ ");
 		for(int k = 0; k < totalMessages; k++) {
 			if(receivedMessages[k] == 0) {		
 				System.err.print((k+1) + ", ");
+				this.lost = true;
 			}
 		}
+		System.out.print("]\n");
 		
 		System.out.println("Received: " + this.totalReceived + "/" + this.totalMessages);
 		System.out.println("Missed messages: " + (this.totalMessages - this.totalReceived));
-		System.out.println(" ("+(((double)this.totalReceived)*100/this.totalMessages)+"%)");
+		System.out.println("Received/Total:  ("+(((double)this.totalReceived)*100/this.totalMessages)+"%)");
 		
 		if(this.lost) {
 			System.out.println("and that is all.");
