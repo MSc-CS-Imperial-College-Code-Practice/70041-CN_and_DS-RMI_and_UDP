@@ -32,15 +32,13 @@ public class UDPServer {
 		
 
 		while(!this.close){
-			recvSoc.setSoTimeout(15000);
-			pacData = new byte[256];
-			pacSize = pacData.length;
 			
-			int i = 1;
-
 			try {
 			
-			
+				recvSoc.setSoTimeout(15000);
+				pacData = new byte[256];
+				pacSize = pacData.length;
+
 				pac = new DatagramPacket(pacData, pacSize);
 				recvSoc.receive(pac);
 				String data = new String(pac.getData()).trim();
@@ -51,23 +49,23 @@ public class UDPServer {
 				i++;
 			
 		
-			for(int k = 0; k < totalMessages; k++) {
-				if(receivedMessages[k] == 0) {
-					if (!lost)
-						System.out.print("Unreceived messages are: ");
-					System.err.print((k+1) + ", ");
-					lost = true;
+				for(int k = 0; k < totalMessages; k++) {
+					if(receivedMessages[k] == 0) {
+						if (!lost)
+							System.out.print("Unreceived messages are: ");
+						System.err.print((k+1) + ", ");
+						lost = true;
+					}
 				}
-			}
 
-			if(lost) {
-					System.out.println("and that is all.");
-			} else { 
-			System.out.println("No Datagram packets were lost!");
-			}
+				if(lost) {
+						System.out.println("and that is all.");
+				} else { 
+				System.out.println("No Datagram packets were lost!");
+				}
 
-			totalMessages = -1;
-			recvSoc.close();
+				totalMessages = -1;
+				recvSoc.close();
 
 			} catch(SocketException e) {
 				System.out.println("Error in server socket: " + e.getMessage());
