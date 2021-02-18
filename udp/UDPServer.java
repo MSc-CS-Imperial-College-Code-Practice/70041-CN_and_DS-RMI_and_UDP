@@ -30,8 +30,6 @@ public class UDPServer {
 		
 		this.close = false;
 		this.lost = false;
-		
-		int i = 0; // 
 
 		while(!this.close){
 			
@@ -47,11 +45,7 @@ public class UDPServer {
 															 // for receiving data packets
 				this.recvSoc.receive(pac);         // receive sent packet from server socket
 				String data = new String(pac.getData()).trim(); // processing data inside socket
-				System.out.println("Iteration..." + i);
-				System.out.println("Data Received: " + data);
 				processMessage(data);
-				i++;
-			
 
 			} catch(SocketException e) {
 				System.out.println("Error in server socket: " + e.getMessage());
