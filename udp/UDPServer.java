@@ -35,7 +35,7 @@ public class UDPServer {
 			pacData = new byte[256];
 			pacSize = pacData.length;
 			
-			//int i = 1;
+			int i = 1;
 			while(!this.close){
 				pac = new DatagramPacket(pacData, pacSize);
 				recvSoc.receive(pac);
