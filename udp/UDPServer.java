@@ -61,6 +61,9 @@ public class UDPServer {
 			System.out.println("No Datagram packets were lost!");
 			}
 
+			totalMessages = -1;
+			recvSoc.close();
+
 		} catch(SocketException e) {
 			System.out.println("Error in server socket: " + e.getMessage());
 			this.close = true;
