@@ -18,7 +18,7 @@ public class UDPServer {
 	private int totalMessages = -1;
 	private int[] receivedMessages;
 	private boolean close;
-	private boolean lost = false;
+	private boolean lost; //check later
 
 	private void run() {
 		int	pacSize;
@@ -29,44 +29,29 @@ public class UDPServer {
 		// Use a timeout (e.g. 30 secs) to ensure the program doesn't block forever
 		
 		this.close = false;
+		this.lost = false;
 		
+		int i = 0; // 
 
 		while(!this.close){
 			
 			try {
 				
-				int i = 0;
-				recvSoc.setSoTimeout(15000);
-				pacData = new byte[256];
-				pacSize = pacData.length;
+				
+				
+				pacData = new byte[10];	  	  // buffer for incoming data packets
+				pacSize = pacData.length;     // length of each packet
+				this.recvSoc.setSoTimeout(15000);  // Set timeout for reciving socket
 
-				pac = new DatagramPacket(pacData, pacSize);
-				recvSoc.receive(pac);
-				String data = new String(pac.getData()).trim();
+				pac = new DatagramPacket(pacData, pacSize);  // DatagramPacket object receiving
+															 // for receiving data packets
+				this.recvSoc.receive(pac);         // receive sent packet from server socket
+				String data = new String(pac.getData()).trim(); // processing data inside socket
 				System.out.println("Iteration..." + i);
-				//System.out.println("Packet..." + pac.getData());
 				System.out.println("Data Received: " + data);
 				processMessage(data);
 				i++;
 			
-		
-				for(int k = 0; k < totalMessages; k++) {
-					if(receivedMessages[k] == 0) {
-						if (!lost)
-							System.out.print("Unreceived messages are: ");
-						System.err.print((k+1) + ", ");
-						lost = true;
-					}
-				}
-
-				if(lost) {
-						System.out.println("and that is all.");
-				} else { 
-				System.out.println("No Datagram packets were lost!");
-				}
-
-				totalMessages = -1;
-				recvSoc.close();
 
 			} catch(SocketException e) {
 				System.out.println("Error in server socket: " + e.getMessage());
@@ -79,6 +64,26 @@ public class UDPServer {
 				this.close = true;
 			}
 		}
+		
+		for(int k = 0; k < totalMessages; k++) {
+			if(receivedMessages[k] == 0) {
+				if (!this.lost)
+					System.out.print("Unreceived messages are: ");
+				System.err.print((k+1) + ", ");
+				this.lost = true;
+			}
+		}
+		
+		if(this.lost) {
+			System.out.println("and that is all.");
+		} else { 
+			System.out.println("No Datagram packets were lost!");
+			
+		}
+
+		this.totalMessages = -1;
+		this.recvSoc.close();
+
 	}
 
 	public void processMessage(String data) {
