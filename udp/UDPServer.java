@@ -29,14 +29,18 @@ public class UDPServer {
 		// Use a timeout (e.g. 30 secs) to ensure the program doesn't block forever
 		
 		this.close = false;
-		try {
-			
+		
+
+		while(!this.close){
 			recvSoc.setSoTimeout(15000);
 			pacData = new byte[256];
 			pacSize = pacData.length;
 			
 			int i = 1;
-			while(!this.close){
+
+			try {
+			
+			
 				pac = new DatagramPacket(pacData, pacSize);
 				recvSoc.receive(pac);
 				String data = new String(pac.getData()).trim();
@@ -45,7 +49,7 @@ public class UDPServer {
 				System.out.println("Data Received: " + data);
 				processMessage(data);
 				i++;
-			}
+			
 		
 			for(int k = 0; k < totalMessages; k++) {
 				if(receivedMessages[k] == 0) {
@@ -55,6 +59,7 @@ public class UDPServer {
 					lost = true;
 				}
 			}
+
 			if(lost) {
 					System.out.println("and that is all.");
 			} else { 
@@ -64,17 +69,17 @@ public class UDPServer {
 			totalMessages = -1;
 			recvSoc.close();
 
-		} catch(SocketException e) {
-			System.out.println("Error in server socket: " + e.getMessage());
-			this.close = true;
-		} catch(IllegalArgumentException e){
-			System.out.println("Illegal Arguments: " + e.getMessage());
-			this.close = true;
-		} catch(IOException e) {
-			System.out.println("Error in receiving client message: " + e.getMessage());
-			this.close = true;
+			} catch(SocketException e) {
+				System.out.println("Error in server socket: " + e.getMessage());
+				this.close = true;
+			} catch(IllegalArgumentException e){
+				System.out.println("Illegal Arguments: " + e.getMessage());
+				this.close = true;
+			} catch(IOException e) {
+				System.out.println("Error in receiving client message: " + e.getMessage());
+				this.close = true;
+			}
 		}
-		
 	}
 
 	public void processMessage(String data) {
