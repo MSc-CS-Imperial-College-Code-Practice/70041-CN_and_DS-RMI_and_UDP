@@ -70,7 +70,7 @@ public class UDPServer {
 				this.lost = true;
 			}
 		}
-		System.out.print("]\n");
+		System.out.print("and nothing more...]\n");
 		
 		System.out.println("Received: " + this.totalReceived + "/" + this.totalMessages);
 		System.out.println("Missed messages: " + (this.totalMessages - this.totalReceived));
