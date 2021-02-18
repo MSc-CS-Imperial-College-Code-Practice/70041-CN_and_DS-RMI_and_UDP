@@ -34,7 +34,8 @@ public class UDPServer {
 		while(!this.close){
 			
 			try {
-			
+				
+				int i = 0;
 				recvSoc.setSoTimeout(15000);
 				pacData = new byte[256];
 				pacSize = pacData.length;
