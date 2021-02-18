@@ -61,10 +61,11 @@ public class UDPServer {
 				this.close = true;
 			}
 		}
-		
+
+
+		System.out.print("Received messages are: ");
 		for(int k = 0; k < totalMessages; k++) {
-			if(receivedMessages[k] == 0) {
-				System.out.print("Received messages are: ");
+			if(receivedMessages[k] == 0) {		
 				System.err.print((k+1) + ", ");
 			}
 		}
