@@ -40,12 +40,16 @@ public class UDPServer {
 				pac = new DatagramPacket(pacData, pacSize);
 				recvSoc.receive(pac);
 				String data = new String(pac.getData()).trim();
-				//System.out.println("Iteration..." + i);
+				System.out.println("Iteration..." + i);
 				//System.out.println("Packet..." + pac.getData());
-				//System.out.println("Data Received: " + data);
+				System.out.println("Data Received: " + data);
 				processMessage(data);
-				//i++;
+				i++;
 			}
+			
+			System.out.print("Received: " + this.totalMessages + "/" + msg.totalMessages);
+			System.out.println(" ("+(((double)this.totalMessages)*100/msg.totalMessages)+"%)");
+
 		
 			for(int k = 0; k < totalMessages; k++) {
 				if(receivedMessages[k] == 0) {
@@ -84,43 +88,42 @@ public class UDPServer {
 		// TO-DO: Use the data to construct a new MessageInfo object
 		try{
 			msg = new MessageInfo(data);
-		} catch(Exception e){
+		 
+			// TO-DO: On receipt of first message, initialise the receive buffer
+			if(this.receivedMessages == null) {
+				this.totalMessages = msg.totalMessages;
+				this.receivedMessages = new int[this.totalMessages];
+				Arrays.fill(this.receivedMessages, 0);  // Init array with zeros 
+			}
+
+			// TO-DO: Log receipt of the message
+			this.receivedMessages[msg.messageNum-1] = 1; // 1 - Received Message
+														// 0 - Unreceived Message
+
+			// TO-DO: If this is the last expected message, then identify
+			// any missing messages
+
+			int missedMessagesCounter = 0;
+			//System.out.println(msg.messageNum + " | " + this.totalMessages);
+			if(msg.messageNum == this.totalMessages) {
+				// for(int i=0; i<this.totalMessages; i++) {
+				// 	if(this.receivedMessages[i] == 0) {
+				// 		missedMessagesCounter++;
+				// 	}
+				// }
+			
+				//System.out.println("Messages sent: " + this.totalMessages);
+				//System.out.println("Missed messages: " + missedMessagesCounter);
+				//System.out.println("Received messages: " + (this.totalMessages - missedMessagesCounter));
+
+				System.out.println("Closing connection...");
+				this.close = true;
+			}
+		
+		} catch(Exception e) {
 			System.out.println("Error in processing message");
 		}
 
-		// TO-DO: On receipt of first message, initialise the receive buffer
-		if(this.receivedMessages == null) {
-			this.totalMessages = msg.totalMessages;
-			this.receivedMessages = new int[this.totalMessages];
-			Arrays.fill(this.receivedMessages, 0);  // Init array with zeros 
-		}
-
-		// TO-DO: Log receipt of the message
-		this.receivedMessages[msg.messageNum-1] = 1; // 1 - Received Message
-											         // 0 - Unreceived Message
-
-		// TO-DO: If this is the last expected message, then identify
-		// any missing messages
-
-		int missedMessagesCounter = 0;
-		//System.out.println(msg.messageNum + " | " + this.totalMessages);
-		if(msg.messageNum == this.totalMessages) {
-			for(int i=0; i<this.totalMessages; i++) {
-				if(this.receivedMessages[i] == 0) {
-					missedMessagesCounter++;
-				}
-			}
-		
-			//System.out.println("Messages sent: " + this.totalMessages);
-			//System.out.println("Missed messages: " + missedMessagesCounter);
-			//System.out.println("Received messages: " + (this.totalMessages - missedMessagesCounter));
-			System.out.print("Received: " + this.totalMessages + "/" + msg.totalMessages);
-			System.out.println(" ("+(((double)this.totalMessages)*100/msg.totalMessages)+"%)");
-
-			System.out.println("Closing connection...");
-			this.close = true;
-		
-		}	
 		
 	}
 
