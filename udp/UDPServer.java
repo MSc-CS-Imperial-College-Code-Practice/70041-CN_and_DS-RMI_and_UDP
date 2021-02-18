@@ -64,12 +64,14 @@ public class UDPServer {
 		
 		for(int k = 0; k < totalMessages; k++) {
 			if(receivedMessages[k] == 0) {
-				if (!this.lost)
-					System.out.print("Unreceived messages are: ");
+				System.out.print("Received messages are: ");
 				System.err.print((k+1) + ", ");
-				this.lost = true;
 			}
 		}
+		
+		System.out.println("Received: " + this.totalReceived + "/" + this.totalMessages);
+		System.out.println("Missed messages: " + (this.totalMessages - this.totalReceived));
+		System.out.println(" ("+(((double)this.totalReceived)*100/this.totalMessages)+"%)");
 		
 		if(this.lost) {
 			System.out.println("and that is all.");
@@ -107,13 +109,6 @@ public class UDPServer {
 			// any missing messages
 	
 			if(msg.messageNum == this.totalMessages) {
-			
-				System.out.println("Messages sent: " + this.totalMessages);
-				System.out.println("Missed messages: " + (this.totalMessages - this.totalReceived));
-				System.out.println("Received messages: " + (this.totalReceived));
-
-				System.out.println("Received: " + this.totalReceived + "/" + this.totalMessages);
-				System.out.println(" ("+(((double)this.totalReceived)*100/this.totalMessages)+"%)");
 	
 				System.out.println("Closing connection...");
 				this.close = true;
