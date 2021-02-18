@@ -42,7 +42,7 @@ public class UDPServer {
 				
 				pacData = new byte[10];	  	  // buffer for incoming data packets
 				pacSize = pacData.length;     // length of each packet
-				this.recvSoc.setSoTimeout(15000);  // Set timeout for reciving socket
+				this.recvSoc.setSoTimeout(10000);  // Set timeout for reciving socket
 
 				pac = new DatagramPacket(pacData, pacSize);  // DatagramPacket object receiving
 															 // for receiving data packets
@@ -63,24 +63,21 @@ public class UDPServer {
 		}
 
 
-		System.out.print("Received messages are: [ ");
+		System.out.print("\nReceived messages are: [ ");
 		for(int k = 0; k < totalMessages; k++) {
-			if(receivedMessages[k] == 0) {		
+			if(receivedMessages[k] == 1) {		
 				System.err.print((k+1) + ", ");
 				this.lost = true;
 			}
 		}
-		System.out.print("and nothing more...]\n");
+		System.out.print("and nothing more...]\n\n");
 		
 		System.out.println("Received: " + this.totalReceived + "/" + this.totalMessages);
 		System.out.println("Missed messages: " + (this.totalMessages - this.totalReceived));
-		System.out.println("Received/Total:  ("+(((double)this.totalReceived)*100/this.totalMessages)+"%)");
+
 		
-		if(this.lost) {
-			System.out.println("and that is all.");
-		} else { 
+		if(!this.lost) {
 			System.out.println("No Datagram packets were lost!");
-			
 		}
 
 		this.totalMessages = -1;
