@@ -67,11 +67,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		try {
 			rmiServer = new RMIServer(); // creating server object
 			String urlServer = new String("rmi://" + "localhost" + "/RMIServer");
-			rebindServer(urlServer, rmiServer);
 		} catch(Exception e) {
 			System.out.println("RMIServer binding error: " + e.getMessage());
 		}
-		
+
+		System.out.println("Binding complete");
 	}
 
 	protected static void rebindServer(String serverURL, RMIServer server) {
@@ -87,7 +87,9 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		try {
 			//LocateRegistry.createRegistry(8000).rebind(serverURL, server);
 			Registry registry = LocateRegistry.getRegistry();
-            registry.rebind(serverURL, server);
+      System.setProperty("java.rmi.server.hostname","146.169.53.202");
+      registry.rebind(serverURL, server);
+      System.out.println("rebind successful");
 		} catch (Exception e) {
 			System.out.println("Registry binding error: " + e.getMessage());
 			e.printStackTrace();
