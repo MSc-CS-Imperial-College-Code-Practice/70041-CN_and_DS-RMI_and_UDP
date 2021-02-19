@@ -14,7 +14,7 @@ rmi:
 
 .PHONY : udp
 udp:
-	@echo "Building UDP Client / Server..."; \
+	@echo "Building UDP Client/Server..."; \
 	cd common; \
 	javac -g -classpath . *.java; \
 	cd ../udp; \

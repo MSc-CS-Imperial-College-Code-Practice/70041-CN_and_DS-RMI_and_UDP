@@ -92,29 +92,37 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 
 	protected static void rebindServer(String serverURL, RMIServer server) {
 
+
+		Registry registry = null;
+
 		// TO-DO:
 		// Start / find the registry (hint use LocateRegistry.createRegistry(...)
 		// If we *know* the registry is running we could skip this (eg run rmiregistry in the start script)
 		
+		try {
+		
+			registry = LocateRegistry.createRegistry(1099);
+		}
+		catch (Exception e) {
+			System.out.println("RMI Server Error: " + e.getMessage());
+			e.printStackTrace();
+		}
+
 		// TO-DO:
 		// Now rebind the server to the registry (rebind replaces any existing servers bound to the serverURL)
 		// Note - Registry.rebind (as returned by createRegistry / getRegistry) does something similar but
 		// expects different things from the URL field.
+		
+	
+			
 		try {
-			//LocateRegistry.createRegistry(8000).rebind(serverURL, server);
-			Registry registry = null;
-			try{
-				//registry = LocateRegistry.createRegistry(1099);
-				registry = LocateRegistry.getRegistry(1099);
-			}
-			catch (RemoteException e) {
-				registry = LocateRegistry.getRegistry();  // 
-			}
+			registry = LocateRegistry.getRegistry();  // 
+			
       		registry.rebind(serverURL, server);
       		System.out.println("Rebind successful!");
 		
 		} catch (Exception e) {
-			System.out.println("Registry binding error: " + e.getMessage());
+			System.out.println("RMI Server Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 		
