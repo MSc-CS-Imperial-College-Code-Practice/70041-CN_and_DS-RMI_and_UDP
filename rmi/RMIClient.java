@@ -3,10 +3,10 @@
  */
 package rmi;
 
-import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.net.MalformedURLException;
 
 import common.MessageInfo;
 
@@ -31,22 +31,23 @@ public class RMIClient {
 		}
 		// TO-DO: Bind to RMIServer
 		try {
-			iRMIServer = (RMIServerI) Naming.lookup(urlServer); //error here
+			//iRMIServer = (RMIServerI) Naming.lookup(urlServer); //error here
+			Registry r = LocateRegistry.getRegistry(args[0],1099);
+			RMIServerI s = (RMIServerI) r.lookup("holaServer");
 
 		// TO-DO: Attempt to send messages the specified number of times
 		
-		for(int i=0; i<numMessages; i++) {
-			MessageInfo msg = new MessageInfo(numMessages,i);
-			iRMIServer.receiveMessage(msg);
+			for(int i=0; i<numMessages; i++) {
+				MessageInfo msg = new MessageInfo(numMessages,i);
+				iRMIServer.receiveMessage(msg);
+				// try to print this because iRMIServer is found null?
+			}
+		
+		} catch(Exception e){
+			System.out.println("Error: " + e.getMessage());
+			e.printStackTrace();
 		}
-
-		} catch(MalformedURLException e){
-			System.out.println("Error with URL: " + e.getMessage());
-		} catch(RemoteException e) {
-			System.out.println("Error with Remote Server: " + e.getMessage());
-		} catch(NotBoundException e){
-			System.out.println("Error in bounding with remote server: " + e.getMessage());
-		}
+	
 	}
 }
 

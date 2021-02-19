@@ -67,7 +67,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		try {
 			rmiServer = new RMIServer(); // creating server object
 			String urlServer = new String("rmi://" + "localhost" + "/RMIServer");
-			rebindServer(urlServer, rmiServer);
+			rebindServer("holaServer", rmiServer);
 		} catch(Exception e) {
 			System.out.println("RMIServer binding error: " + e.getMessage());
 		}
