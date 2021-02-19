@@ -44,7 +44,7 @@ public class RMIClient {
 			}
 		
 		} catch(Exception e){
-			System.out.println("Error at RMI Client: " + e.getMessage());
+			System.out.println("RMI Client Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 	
