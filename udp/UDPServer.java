@@ -19,7 +19,6 @@ public class UDPServer {
 	private int totalReceived = 0;
 	private int[] receivedMessages;
 	private boolean close;
-	private boolean lost;
 	
 
 	private void run() {
@@ -32,7 +31,6 @@ public class UDPServer {
 		// Use a timeout (e.g. 30 secs) to ensure the program doesn't block forever
 		
 		this.close = false;
-		this.lost = false;
 
 		while(!this.close){
 			
@@ -67,18 +65,12 @@ public class UDPServer {
 		for(int k = 0; k < totalMessages; k++) {
 			if(receivedMessages[k] == 1) {		
 				System.err.print((k+1) + ", ");
-				this.lost = true;
 			}
 		}
 		System.out.print("and nothing more...]\n\n");
 		
 		System.out.println("Received: " + this.totalReceived + "/" + this.totalMessages);
 		System.out.println("Missed messages: " + (this.totalMessages - this.totalReceived));
-
-		
-		if(!this.lost) {
-			System.out.println("No Datagram packets were lost!");
-		}
 
 		this.totalMessages = -1;
 		this.recvSoc.close();

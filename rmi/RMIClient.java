@@ -22,7 +22,7 @@ public class RMIClient {
 			System.exit(-1);
 		}
 
-		String urlServer = new String("rmi://" + args[0] + "/RMIServer");
+		//String urlServer = new String("rmi://" + args[0] + "/RMIServer");
 		int numMessages = Integer.parseInt(args[1]);
 
 		// TO-DO: Initialise Security Manager
@@ -33,7 +33,7 @@ public class RMIClient {
 		try {
 			//iRMIServer = (RMIServerI) Naming.lookup(urlServer); //error here
 			Registry r = LocateRegistry.getRegistry(args[0],1099);
-			RMIServerI s = (RMIServerI) r.lookup("holaServer");
+			iRMIServer = (RMIServerI) r.lookup("holaServer");
 
 		// TO-DO: Attempt to send messages the specified number of times
 		
@@ -44,7 +44,7 @@ public class RMIClient {
 			}
 		
 		} catch(Exception e){
-			System.out.println("Error: " + e.getMessage());
+			System.out.println("Error at RMI Client: " + e.getMessage());
 			e.printStackTrace();
 		}
 	

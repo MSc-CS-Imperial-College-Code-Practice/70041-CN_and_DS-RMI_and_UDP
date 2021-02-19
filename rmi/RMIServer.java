@@ -10,6 +10,7 @@ import java.rmi.NotBoundException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Arrays;
 
 import common.MessageInfo;
 
@@ -17,6 +18,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 
 	private int totalMessages = -1;
 	private int[] receivedMessages;
+	private int totalReceived = 0;
 
 	public RMIServer() throws RemoteException {
 		super(); // call super() constructor from UnicastRemoteObject for 
@@ -25,31 +27,44 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 
 	public void receiveMessage(MessageInfo msg) throws RemoteException {
 
-		// TO-DO: On receipt of first message, initialise the receive buffer
-		if (this.receivedMessages == null) {
-			this.receivedMessages = new int[this.totalMessages];
-		}
-		// TO-DO: Log receipt of the message
-		this.receivedMessages[msg.messageNum-1] = 1; // 1 - Received Message
-											   		 // 0 - Unreceived Message
+		try{
+			
+			// TO-DO: On receipt of first message, initialise the receive buffer
+			if(this.receivedMessages == null) {
+				this.totalMessages = msg.totalMessages;
+				this.receivedMessages = new int[this.totalMessages];
+				Arrays.fill(this.receivedMessages, 0);  // Init array with zeros 
+			}
 
-		// TO-DO: If this is the last expected message, then identify
-		//        any missing messages
-		int missedMessagesCounter = 0;
-		if(msg.messageNum == this.totalMessages) {
-			for(int i=0; i<this.totalMessages; i++) {
-				if(this.receivedMessages[i] == 0) {
-					missedMessagesCounter++;
+			// TO-DO: Log receipt of the message
+			this.receivedMessages[msg.messageNum] = 1; // 1 - Received Message
+															// 0 - Unreceived Message
+			this.totalReceived++;
+
+			// TO-DO: If this is the last expected message, then identify
+			//        any missing messages
+		
+			if(msg.messageNum == this.totalMessages - 1) {
+		
+				System.out.print("\nReceived messages are: [ ");
+				for(int k = 0; k < totalMessages; k++) {
+					if(receivedMessages[k] == 1) {
+						System.out.print(k+1 + ", ");
+					}
 				}
+	
+				System.out.print("and nothing more...]\n\n");
+		
+			System.out.println("Received: " + this.totalReceived + "/" + this.totalMessages);
+			System.out.println("Missed messages: " + (this.totalMessages - this.totalReceived));
+
+			this.totalMessages = -1;
+			System.out.println("Closing connection..."); //havent actually closed connection
 			}
 		
-			System.out.println("Messages sent: " + this.totalMessages);
-			System.out.println("Missed messages: " + missedMessagesCounter);
-			System.out.println("Received messages: " + (this.totalMessages - missedMessagesCounter));
-		
-		}	
-		
-		System.out.println("Closing connection...");
+		} catch(Exception e) {
+			System.out.println("Error in receiving message: " + e.getMessage());
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -66,13 +81,13 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// TO-DO: Bind to RMI registry
 		try {
 			rmiServer = new RMIServer(); // creating server object
-			String urlServer = new String("rmi://" + "localhost" + "/RMIServer");
+			//String urlServer = new String("rmi://" + "localhost" + "/RMIServer");
 			rebindServer("holaServer", rmiServer);
 		} catch(Exception e) {
 			System.out.println("RMIServer binding error: " + e.getMessage());
 		}
 
-		System.out.println("Binding complete");
+		System.out.println("Binding complete!");
 	}
 
 	protected static void rebindServer(String serverURL, RMIServer server) {
@@ -89,7 +104,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 			//LocateRegistry.createRegistry(8000).rebind(serverURL, server);
 			Registry registry = LocateRegistry.getRegistry();  // 
       		registry.rebind(serverURL, server);
-      		System.out.println("rebind successful");
+      		System.out.println("Rebind successful!");
 		} catch (Exception e) {
 			System.out.println("Registry binding error: " + e.getMessage());
 			e.printStackTrace();
