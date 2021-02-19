@@ -99,6 +99,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 			e.printStackTrace();
 		}
 
+		// Printing message indicating that binding is complete
 		System.out.println("Binding complete!");
 	}
 
@@ -114,8 +115,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// rmiregistry in the start script)
 		
 		try {
-			// creates registry in port 1099
-			registry = LocateRegistry.createRegistry(1099); 
+			registry = LocateRegistry.createRegistry(1099); // creates registry 
+															// in port 1099
 		}
 		catch (Exception e) {
 			System.out.println("RMI Server Error: " + e.getMessage());
@@ -128,7 +129,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// by createRegistry / getRegistry) does something similar but expects 
 		// different things from the URL field.
 				
-	try {
+		try {
       		registry.rebind(serverURL, server); // making server remote object 
 			  									// available
       		System.out.println("Rebind successful!");
