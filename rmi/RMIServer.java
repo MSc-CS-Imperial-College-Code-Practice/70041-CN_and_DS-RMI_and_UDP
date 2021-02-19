@@ -3,12 +3,13 @@
  */
 package rmi;
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
+//import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.NotBoundException;
+import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Arrays;
 
 import common.MessageInfo;
 
@@ -18,6 +19,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 	private int[] receivedMessages;
 
 	public RMIServer() throws RemoteException {
+		super(); // call super() constructor from UnicastRemoteObject for 
+				 // RMI linking & object initialisation
 	}
 
 	public void receiveMessage(MessageInfo msg) throws RemoteException {
@@ -56,14 +59,15 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// TO-DO: Initialise Security Manager
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
+			//System.setProperty("java.security.policy","file:///home/.../<filename>.policy");
 		}
 
 		// TO-DO: Instantiate the server class
 		// TO-DO: Bind to RMI registry
 		try {
-			rmiServer = new RMIServer();
+			rmiServer = new RMIServer(); // creating server object
 			String urlServer = new String("rmi://" + "localhost" + "/RMIServer");
-			rebindServer(urlServer, rmiServer); //error here
+			rebindServer(urlServer, rmiServer);
 		} catch(Exception e) {
 			System.out.println("RMIServer binding error: " + e.getMessage());
 		}
@@ -81,7 +85,9 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		// Note - Registry.rebind (as returned by createRegistry / getRegistry) does something similar but
 		// expects different things from the URL field.
 		try {
-			LocateRegistry.createRegistry(8080).rebind(serverURL, server);
+			//LocateRegistry.createRegistry(8000).rebind(serverURL, server);
+			Registry registry = LocateRegistry.getRegistry();
+            registry.rebind(serverURL, server);
 		} catch (Exception e) {
 			System.out.println("Registry binding error: " + e.getMessage());
 			e.printStackTrace();
