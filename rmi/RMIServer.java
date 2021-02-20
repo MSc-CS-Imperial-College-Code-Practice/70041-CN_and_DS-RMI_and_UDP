@@ -63,11 +63,15 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 				System.out.println("Missed messages: " + (this.totalMessages - 
 									this.messageCounter));
 
-				// After finishing set totalMessages to initial value (-1)
+				// After finishing set totalMessages to initial parameters
+				// to default valuse, so RMI Server can receive new messages
 				this.totalMessages = -1;
+				this.receivedMessages = null;
+				this.messageCounter = 0;
+				
 
 				// Printing message indicating close of connection
-				System.out.println("Closing connection..."); 
+				System.out.println("Wating for more messages..."); 
 			}
 		
 		} catch(Exception e) {
