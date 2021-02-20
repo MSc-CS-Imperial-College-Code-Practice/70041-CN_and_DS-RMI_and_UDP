@@ -28,9 +28,10 @@ public class UDPClient {
 		try {
 			serverAddr = InetAddress.getByName(args[0]);
 
-		} catch (UnknownHostException e) {
-			System.out.println("Bad server address in UDPClient, " + args[0] + " caused an unknown host exception " + e);
-			System.exit(-1);
+		} catch (Exception e) {
+			System.out.println("RMI Client Error: " + e.getMessage());
+			e.printStackTrace();
+			System.exit(-1); // Erase???
 		}
 		recvPort = Integer.parseInt(args[1]);
 		countTo = Integer.parseInt(args[2]);
@@ -39,7 +40,7 @@ public class UDPClient {
 		// TO-DO: Construct UDP client class and try to send messages
 		UDPClient udpClient = new UDPClient();
 		udpClient.testLoop(serverAddr, recvPort, countTo);
-		System.out.println("Sending ends.");
+		System.out.println("Sending messages to UDP Server...");
 	}
 
 	public UDPClient() {

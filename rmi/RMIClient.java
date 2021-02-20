@@ -57,6 +57,8 @@ public class RMIClient {
 				// Invoke receiveMessage method on Remote Object (RMI Server) 
 				iRMIServer.receiveMessage(msg); 
 			}
+
+			System.out.println("Sending messages to RMI Server...");
 		
 		} catch(Exception e){
 			System.out.println("RMI Client Error: " + e.getMessage());

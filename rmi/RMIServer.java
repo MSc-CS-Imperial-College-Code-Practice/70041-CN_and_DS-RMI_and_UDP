@@ -94,13 +94,15 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 			// remote object
 			rebindServer("holaServer", rmiServer); 
 
+			// Printing message indicating that RMI Server is ready to
+			// receive messages
+			System.out.println("RMIserver ready to receive meesages!");
+
 		} catch(Exception e) {
 			System.out.println("RMI Server Error: " + e.getMessage());
 			e.printStackTrace();
 		}
 
-		// Printing message indicating that binding is complete
-		System.out.println("Binding complete!");
 	}
 
 	protected static void rebindServer(String serverURL, RMIServer server) {
@@ -132,7 +134,6 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		try {
       		registry.rebind(serverURL, server); // making server remote object 
 			  									// available
-      		System.out.println("Rebind successful!");
 		
 		} catch (Exception e) {
 			System.out.println("RMI Server Error: " + e.getMessage());
