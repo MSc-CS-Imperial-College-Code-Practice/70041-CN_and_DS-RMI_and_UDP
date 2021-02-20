@@ -24,7 +24,7 @@ public class RMIClient {
 
 		// Check arguments for Server host and number of messages
 		if (args.length < 2){
-			System.out.println("Needs 2 arguments: ServerHostName/IPAddress,"+ 
+			System.out.println("Needs 2 arguments: ServerHostName/IPAddress," + 
 			"TotalMessageCount");
 			System.exit(-1);
 		}
