@@ -9,6 +9,7 @@ import java.rmi.NotBoundException;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 import common.MessageInfo;
@@ -63,9 +64,10 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 				System.out.println("Missed messages: " + (this.totalMessages - 
 									this.messageCounter));
 				
+				DecimalFormat df = new DecimalFormat("##.##%");
 				double Efficiency = (this.messageCounter/ this.totalMessages)
 									* 100.00;
-				System.out.println("Efficiency: " + Efficiency + "%");
+				System.out.println("Efficiency: " + df.format(Efficiency) + "%");
 
 				// After finishing set totalMessages to initial parameters
 				// to default valuse, so RMI Server can receive new messages
