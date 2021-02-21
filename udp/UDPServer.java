@@ -46,36 +46,34 @@ public class UDPServer {
 				this.recvSoc.receive(pac);         // receive sent packet from server socket
 				String data = new String(pac.getData()).trim(); // processing data inside socket
 				processMessage(data);
-				
-
-				// Printing Stats for messages received and missed
-				System.out.print("\nReceived messages are: [ ");
-				for(int k = 0; k < totalMessages; k++) {
-					if(receivedMessages[k] == 1) {		
-						System.err.print((k+1) + ", ");
-					}
-				}
-				System.out.print("and nothing more...]\n\n");
-				System.out.println("Received: " + this.messageCounter + "/" + this.totalMessages);
-				System.out.println("Missed messages: " + (this.totalMessages - this.messageCounter));
-				DecimalFormat df = new DecimalFormat("##.##%");
-				double Efficiency = ( (double) this.messageCounter 
-											/ this.totalMessages);
-				System.out.println("Efficiency: " + df.format(Efficiency));
-				System.out.println("Closing connection...");
-				
-				
+			
 
 			} catch (Exception e) {
 				this.close = true;
 				System.out.println("Closing connection: " + e.getMessage());
 			}
+			
 
+			// Printing Stats for messages received and missed
+			System.out.print("\nReceived messages are: [ ");
+			for(int k = 0; k < totalMessages; k++) {
+				if(receivedMessages[k] == 1) {		
+					System.err.print((k+1) + ", ");
+				}
+			}
+			System.out.print("and nothing more...]\n\n");
+			System.out.println("Received: " + this.messageCounter + "/" + this.totalMessages);
+			System.out.println("Missed messages: " + (this.totalMessages - this.messageCounter));
+			DecimalFormat df = new DecimalFormat("##.##%");
+			double Efficiency = ( (double) this.messageCounter 
+										/ this.totalMessages);
+			System.out.println("Efficiency: " + df.format(Efficiency));
+			System.out.println("Closing connection...");
+			
 			// After finishing set totalMessages to default value and close
 			// receivig socket from UDP Server
 			this.totalMessages = -1;
 			this.recvSoc.close();
-		
 		}
 	}
 
