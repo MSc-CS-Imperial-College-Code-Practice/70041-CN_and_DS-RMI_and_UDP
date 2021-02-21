@@ -72,6 +72,8 @@ public class UDPServer {
 									/ this.totalMessages);
 		System.out.println("Efficiency: " + df.format(Efficiency));
 
+		System.out.println("Closing connection...");
+
 		this.totalMessages = -1;
 		this.recvSoc.close();
 
@@ -101,13 +103,12 @@ public class UDPServer {
 			// any missing messages
 	
 			if(msg.messageNum == this.totalMessages) {
-	
-				System.out.println("Closing connection...");
 				this.close = true;
 			}
 		
-		} catch(Exception e) {
-			System.out.println("Error in processing message");
+		}catch (Exception e) {
+			System.out.println("UDP Server Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 
 		

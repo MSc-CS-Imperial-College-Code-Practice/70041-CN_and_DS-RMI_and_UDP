@@ -29,7 +29,7 @@ public class UDPClient {
 			serverAddr = InetAddress.getByName(args[0]);
 
 		} catch (Exception e) {
-			System.out.println("RMI Client Error: " + e.getMessage());
+			System.out.println("UDP Client Error: " + e.getMessage());
 			e.printStackTrace();
 			System.exit(-1); // Erase???
 		}
@@ -47,8 +47,9 @@ public class UDPClient {
 		// TO-DO: Initialise the UDP socket for sending data
 		try{
 			this.sendSoc = new DatagramSocket();
-		} catch(SocketException e) {
-			System.out.println("Error in client socket: " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("UDP Client Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 		
 	}
@@ -79,8 +80,9 @@ public class UDPClient {
 		try {
 			this.sendSoc.send(pkt);
 
-		} catch(IOException e) {
-			System.out.println("Error in sending client message: " + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("UDP Client Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 }
