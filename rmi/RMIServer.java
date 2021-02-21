@@ -64,7 +64,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 									this.messageCounter));
 				
 				double Efficiency = (this.messageCounter/ this.totalMessages)
-									* 100.0;
+									* 100.00;
 				System.out.println("Efficiency: " + Efficiency + "%");
 
 				// After finishing set totalMessages to initial parameters
