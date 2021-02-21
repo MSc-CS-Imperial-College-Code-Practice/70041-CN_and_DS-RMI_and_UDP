@@ -23,31 +23,39 @@ public class UDPServer {
 									// closed
 	
 	private void run() {
-		int	payloadSize;        // size of packets that will be send in message
-		byte[] pktData;			// array that parse message to send in array of 
-								// bytes
-		DatagramPacket pkt;		// define DatagramPacket object for including,
-								// data to send and destination and port address
+		int	payloadSize;        // size of packets received
+		byte[] pktData;			// array that receives bytes of data from mess-
+								// age sent
+		DatagramPacket pkt;		// define DatagramPacket object that handles 
+								// data sent by UDP Client to UDP Server
 		
 
-		// TO-DO: Receive the messages and process them by calling processMessage(...).
-		// Use a timeout (e.g. 30 secs) to ensure the program doesn't block forever
+		// TO-DO: Receive the messages and process them by calling 
+		// processMessage(...)- Use a timeout (e.g. 30 secs) to ensure the 
+		// program doesn't block forever
 		
-		this.close = false;
+		this.close = false;      // When starting server set close flag to false
 
 		while(!this.close){
 			
 			try {
 				
-				pktData = new byte[10];	  	  // buffer for incoming data packets
-				payloadSize = pktData.length;     // length of each packet
-				this.recvSoc.setSoTimeout(10000);  // Set timeout for reciving socket
+				pktData = new byte[256];	     // initialzie receiving array
+												 // for packets transmitted 
+				payloadSize = pktData.length;    // initilaizing size of payload
+				this.recvSoc.setSoTimeout(10000); // Set timeout for reciving 
+												  // socket in UDP Server
 
-				pkt = new DatagramPacket(pktData, payloadSize);  // DatagramPacket object receiving
-																// for receiving data packets
-				this.recvSoc.receive(pkt);         // receive sent packet from server socket
-				String data = new String(pkt.getData()).trim(); // processing data inside socket
-				processMessage(data);
+				// Creating DatagramPacket Object to receive messages and handle
+				// iformation received
+				pkt = new DatagramPacket(pktData, payloadSize);
+				// Receive sent data from UDP Client
+				this.recvSoc.receive(pkt);
+				// Create string variable "data" for parsing information in
+				// DatagramPacket "pkt" as String
+				String data = new String(pkt.getData()).trim(); 
+				processMessage(data); // customized method for processing mess-
+									  // ages and check if data is received
 			
 
 			} catch (Exception e) {
@@ -67,8 +75,10 @@ public class UDPServer {
 		}
 		System.out.print("and nothing more...]\n\n");
 		
-		System.out.println("Received: " + this.messageCounter + "/" + this.totalMessages);
-		System.out.println("Missed messages: " + (this.totalMessages - this.messageCounter));
+		System.out.println("Received: " + this.messageCounter + "/" + 
+						   this.totalMessages);
+		System.out.println("Missed messages: " + (this.totalMessages - 
+						   this.messageCounter));
 		DecimalFormat df = new DecimalFormat("##.##%");
 		double Efficiency = ( (double) this.messageCounter 
 									/ this.totalMessages);
@@ -84,13 +94,14 @@ public class UDPServer {
 
 	public void processMessage(String data) {
 
+		// Define variable "msg" from Class MessageInfo to handle "data" 
+		// sent by UDP Client
 		MessageInfo msg = null;
 
 		// TO-DO: Use the data to construct a new MessageInfo object
 		try{
 
-			// Create variable "msg" from Class MessageInfo to handle "data" 
-			// sent by UDP Client
+			// Initiliaze variable "msg" with data sent by UDP Client	
 			msg = new MessageInfo(data);
 		 
 			// TO-DO: On receipt of first message, initialise the receive buffer
@@ -103,13 +114,17 @@ public class UDPServer {
 			// TO-DO: Log receipt of the message
 			this.receivedMessages[msg.messageNum-1] = 1; // 1 - Received Message
 													   // 0 - Unreceived Message
-			this.messageCounter++;
+			this.messageCounter++; // update message counter by 1
 
 			// TO-DO: If this is the last expected message, then identify
 			// any missing messages
 	
 			if(msg.messageNum == this.totalMessages) {
-				this.close = true;
+				
+				// NOTE: missing message information are handled by run(...)
+				// method
+				this.close = true; // set close flag to true for indicating the
+								   // closing of connection with UDP server 
 			}
 		
 		}catch (Exception e) {
@@ -119,10 +134,11 @@ public class UDPServer {
 	}
 
 	public UDPServer(int rp) {
+		
 		// TO-DO: Initialise UDP socket for receiving data
-	
 		try{
-			this.recvSoc = new DatagramSocket(rp);
+			this.recvSoc = new DatagramSocket(rp); // initialize receing socket
+												   // in reciving port "rc"
 		}catch (Exception e) {
 			System.out.println("UDP Server Error: " + e.getMessage());
 			e.printStackTrace();
@@ -140,7 +156,8 @@ public class UDPServer {
 			System.err.println("Arguments required: recv port");
 			System.exit(-1);
 		}
-		recvPort = Integer.parseInt(args[0]);
+		recvPort = Integer.parseInt(args[0]); //parsing reciving port of UDP
+											  // Server to Integer Object
 
 		// TO-DO: Construct Server object and start it by calling run().
 		UDPServer udpServer = new UDPServer(recvPort);

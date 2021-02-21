@@ -99,7 +99,7 @@ public class UDPClient {
 		pktData = payload.getBytes(); // parsing payload to array of bytes
 		payloadSize = pktData.length; // initilaizing size of payload
 
-		// Creating DatagramPacket Object
+		// Creating DatagramPacket Object to send messages
 		pkt = new DatagramPacket(pktData, payloadSize, destAddr, destPort);
 		
 		try {
