@@ -1,17 +1,15 @@
 package udp;
 
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 
 import common.MessageInfo;
 
 public class UDPClient {
 
-	private DatagramSocket sendSoc;
+	private DatagramSocket sendSoc; // define DatagramSocket Object for sending
+									// messages to UDP Server
 
 	public static void main(String[] args) {
 		InetAddress	serverAddr = null ; // IP address from UDP server
@@ -72,28 +70,38 @@ public class UDPClient {
 
 		// TO-DO: Send the messages to the server
 		for(int i=1; i<=countTo;i++){
+			
 			// Create variable "msg" from Class MessageInfo that holds data 
 			// that will be send by UDP Client
-			MessageInfo clientPacket = new MessageInfo(countTo,i); // 
-			String messageToSend = new String();
-			messageToSend = clientPacket.toString();
-			this.send(messageToSend, serverAddr, recvPort);
+			MessageInfo msg = new MessageInfo(countTo,i); // 
+			
+			// Create variable "msgString" that is the information in "msg"
+			// parsed to a string
+			String msgString = new String();
+			msgString = msg.toString();
+			this.send(msgString, serverAddr, recvPort);
 		}
 	}
 
 	private void send(String payload, InetAddress destAddr, int destPort) {
-		int	payloadSize;
-		byte[] pktData;
-		DatagramPacket pkt;
+		
+		int	payloadSize;        // size of packets that will be send in message
+		byte[] pktData;			// array that parse message to send in array of 
+								// bytes
+		DatagramPacket pkt;		// define DatagramPacket object for including,
+								// data to send and destination and port address
 
 		// TO-DO: build the datagram packet and send it to the server
 		
-		pktData = payload.getBytes();
-		payloadSize = pktData.length;
+		pktData = payload.getBytes(); // parsing payload to array of bytes
+		payloadSize = pktData.length; // initilaizing size of payload
+
+		// Creating DatagramPacket Object
 		pkt = new DatagramPacket(pktData, payloadSize, destAddr, destPort);
 		
 		try {
-			this.sendSoc.send(pkt);
+			this.sendSoc.send(pkt); // send DatagramPacket object to UDP Server
+									// from sender socket
 
 		} catch (Exception e) {
 			System.out.println("UDP Client Error: " + e.getMessage());

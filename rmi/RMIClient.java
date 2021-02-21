@@ -51,7 +51,7 @@ public class RMIClient {
 			
 			for(int i=0; i<numMessages; i++) {
 				// Create variable "msg" from Class MessageInfo that holds data 
-				// tht will be send by RMI Client
+				// that will be send by RMI Client
 				MessageInfo msg = new MessageInfo(numMessages,i);
 				// Invoke receiveMessage method on Remote Object (RMI Server) 
 				iRMIServer.receiveMessage(msg); 

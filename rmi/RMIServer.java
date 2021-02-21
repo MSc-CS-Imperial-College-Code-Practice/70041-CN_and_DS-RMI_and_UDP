@@ -16,7 +16,8 @@ import common.MessageInfo;
 
 public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 
-	private int totalMessages = -1; // total messages sent by client
+	private int totalMessages = -1; // total messages sent by client. Initialize
+									// with "-1" from the beggining
 	private int[] receivedMessages; // array with flags indicating which 
 									// messages were received 
 	private int messageCounter = 0;	// counter for messages recieved
