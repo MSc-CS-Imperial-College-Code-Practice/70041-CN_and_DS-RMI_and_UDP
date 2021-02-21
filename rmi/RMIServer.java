@@ -71,7 +71,7 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 				
 
 				// Printing message indicating close of connection
-				System.out.println("Wating for more messages..."); 
+				System.out.println("Wating for new messages from RMI Client..."); 
 			}
 		
 		} catch(Exception e) {
