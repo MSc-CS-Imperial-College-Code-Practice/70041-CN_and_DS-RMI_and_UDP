@@ -24,12 +24,12 @@ public class UDPServer {
 	private boolean timeout;		// flag for checking if communication
 									// timeout	
 	
+
 	private void run() {
-		int	payloadSize;        // size of packets that will be send in message
-		byte[] pktData;			// array that parse message to send in array of 
-								// bytes
-		DatagramPacket pkt;		// define DatagramPacket object for including,
-								// data to send and destination and port address
+		int	pacSize;
+		byte[] pacData;
+		DatagramPacket pac;
+		
 
 		// TO-DO: Receive the messages and process them by calling processMessage(...).
 		// Use a timeout (e.g. 30 secs) to ensure the program doesn't block forever
@@ -41,14 +41,14 @@ public class UDPServer {
 			
 			try {
 				
-				pktData = new byte[10];	  	  // buffer for incoming data packets
-				payloadSize = pktData.length;     // length of each packet
+				pacData = new byte[10];	  	  // buffer for incoming data packets
+				pacSize = pacData.length;     // length of each packet
 				this.recvSoc.setSoTimeout(10000);  // Set timeout for reciving socket
 
-				pkt = new DatagramPacket(pktData, payloadSize);  // DatagramPacket object receiving
+				pac = new DatagramPacket(pacData, pacSize);  // DatagramPacket object receiving
 																// for receiving data packets
-				this.recvSoc.receive(pkt);         // receive sent packet from server socket
-				String data = new String(pkt.getData()).trim(); // processing data inside socket
+				this.recvSoc.receive(pac);         // receive sent packet from server socket
+				String data = new String(pac.getData()).trim(); // processing data inside socket
 				processMessage(data);
 			
 
