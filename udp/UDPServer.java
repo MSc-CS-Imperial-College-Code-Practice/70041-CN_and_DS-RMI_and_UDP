@@ -21,40 +21,37 @@ public class UDPServer {
 									// messages were received
 	private boolean close;          // flag for checking if communication is 
 									// closed
-	private boolean timeout;		// flag for checking if communication
-									// timeout	
 	
-
 	private void run() {
-		int	pacSize;
-		byte[] pacData;
-		DatagramPacket pac;
+		int	payloadSize;        // size of packets that will be send in message
+		byte[] pktData;			// array that parse message to send in array of 
+								// bytes
+		DatagramPacket pkt;		// define DatagramPacket object for including,
+								// data to send and destination and port address
 		
 
 		// TO-DO: Receive the messages and process them by calling processMessage(...).
 		// Use a timeout (e.g. 30 secs) to ensure the program doesn't block forever
 		
 		this.close = false;
-		this.timeout = false;
 
 		while(!this.close){
 			
 			try {
 				
-				pacData = new byte[10];	  	  // buffer for incoming data packets
-				pacSize = pacData.length;     // length of each packet
+				pktData = new byte[10];	  	  // buffer for incoming data packets
+				payloadSize = pktData.length;     // length of each packet
 				this.recvSoc.setSoTimeout(10000);  // Set timeout for reciving socket
 
-				pac = new DatagramPacket(pacData, pacSize);  // DatagramPacket object receiving
+				pkt = new DatagramPacket(pktData, payloadSize);  // DatagramPacket object receiving
 																// for receiving data packets
-				this.recvSoc.receive(pac);         // receive sent packet from server socket
-				String data = new String(pac.getData()).trim(); // processing data inside socket
+				this.recvSoc.receive(pkt);         // receive sent packet from server socket
+				String data = new String(pkt.getData()).trim(); // processing data inside socket
 				processMessage(data);
 			
 
 			} catch (Exception e) {
 				this.close = true;
-				this.timeout = true;
 				System.out.println("Closing connection: " + e.getMessage());
 			}
 		
