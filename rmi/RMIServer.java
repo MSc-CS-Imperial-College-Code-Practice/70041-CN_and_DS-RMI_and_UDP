@@ -65,7 +65,8 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 									this.messageCounter));
 				
 				DecimalFormat df = new DecimalFormat("##.##%");
-				double Efficiency = (10.0/ this.totalMessages);
+				double Efficiency = ( (double) this.messageCounter 
+									/ this.totalMessages);
 				System.out.println("Efficiency: " + df.format(Efficiency));
 
 				// After finishing set totalMessages to initial parameters
