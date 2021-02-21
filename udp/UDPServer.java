@@ -8,6 +8,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 import common.MessageInfo;
@@ -16,7 +17,7 @@ public class UDPServer {
 
 	private DatagramSocket recvSoc;
 	private int totalMessages = -1;
-	private int totalReceived = 0;
+	private int messageCounter = 0;
 	private int[] receivedMessages;
 	private boolean close;
 	
@@ -46,16 +47,12 @@ public class UDPServer {
 				String data = new String(pac.getData()).trim(); // processing data inside socket
 				processMessage(data);
 
-			} catch(SocketException e) {
-				System.out.println("Error in server socket: " + e.getMessage());
+			} catch (Exception e) {
 				this.close = true;
-			} catch(IllegalArgumentException e){
-				System.out.println("Illegal Arguments: " + e.getMessage());
-				this.close = true;
-			} catch(IOException e) {
-				System.out.println("Error in receiving client message: " + e.getMessage());
-				this.close = true;
+				System.out.println("UDP Server Error: " + e.getMessage());
+				e.printStackTrace();
 			}
+		
 		}
 
 
@@ -67,8 +64,13 @@ public class UDPServer {
 		}
 		System.out.print("and nothing more...]\n\n");
 		
-		System.out.println("Received: " + this.totalReceived + "/" + this.totalMessages);
-		System.out.println("Missed messages: " + (this.totalMessages - this.totalReceived));
+		System.out.println("Received: " + this.messageCounter + "/" + this.totalMessages);
+		System.out.println("Missed messages: " + (this.totalMessages - this.messageCounter));
+
+		DecimalFormat df = new DecimalFormat("##.##%");
+		double Efficiency = ( (double) this.messageCounter 
+									/ this.totalMessages);
+		System.out.println("Efficiency: " + df.format(Efficiency));
 
 		this.totalMessages = -1;
 		this.recvSoc.close();
@@ -93,7 +95,7 @@ public class UDPServer {
 			// TO-DO: Log receipt of the message
 			this.receivedMessages[msg.messageNum-1] = 1; // 1 - Received Message
 														// 0 - Unreceived Message
-			this.totalReceived++;
+			this.messageCounter++;
 
 			// TO-DO: If this is the last expected message, then identify
 			// any missing messages
@@ -117,8 +119,9 @@ public class UDPServer {
 	
 		try{
 			this.recvSoc = new DatagramSocket(rp);
-		} catch(SocketException e) {
-			System.out.println("Error in server socket: " + e.getMessage());
+		}catch (Exception e) {
+			System.out.println("UDP Server Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 		
 		// Done Initialisation
