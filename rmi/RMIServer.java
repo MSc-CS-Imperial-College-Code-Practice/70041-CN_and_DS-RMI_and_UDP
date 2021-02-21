@@ -74,10 +74,11 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 				this.totalMessages = -1;
 				this.receivedMessages = null;
 				this.messageCounter = 0;
-				
 
-				// Printing message indicating close of connection
-				System.out.println("Wating for new messages from RMI Client..."); 
+				// Printing message indicating availability for sending new 
+				// messages to RMI Server
+				System.out.println("Wating for new messages from RMI" + 
+								   "Client..."); 
 			}
 		
 		} catch(Exception e) {
