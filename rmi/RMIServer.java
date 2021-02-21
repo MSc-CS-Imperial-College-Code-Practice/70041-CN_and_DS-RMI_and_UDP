@@ -47,7 +47,6 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 		
 			if(msg.messageNum == this.totalMessages - 1) {
 				
-
 				// Listing all the messages received
 				System.out.print("\nReceived messages are: [ ");
 				for(int k = 0; k < totalMessages; k++) {
@@ -58,12 +57,10 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 				
 				// Printing Stats for messages received and missed
 				System.out.print("and nothing more...]\n\n");
-		
 				System.out.println("Received: " + this.messageCounter + "/" + 
 									this.totalMessages);
 				System.out.println("Missed messages: " + (this.totalMessages - 
-									this.messageCounter));
-				
+									this.messageCounter));	
 				DecimalFormat df = new DecimalFormat("##.##%");
 				double Efficiency = ( (double) this.messageCounter 
 									/ this.totalMessages);

@@ -71,7 +71,7 @@ public class UDPServer {
 
 			} catch (Exception e) {
 				this.close = true;
-				System.out.println(e.getMessage());
+				System.out.println("Closing connection: " + e.getMessage());
 			}
 		
 		}
@@ -83,6 +83,9 @@ public class UDPServer {
 
 		// TO-DO: Use the data to construct a new MessageInfo object
 		try{
+
+			// Create variable "msg" from Class MessageInfo to handle "data" 
+			// sent by UDP Client
 			msg = new MessageInfo(data);
 		 
 			// TO-DO: On receipt of first message, initialise the receive buffer
@@ -94,7 +97,7 @@ public class UDPServer {
 
 			// TO-DO: Log receipt of the message
 			this.receivedMessages[msg.messageNum-1] = 1; // 1 - Received Message
-														// 0 - Unreceived Message
+													   // 0 - Unreceived Message
 			this.messageCounter++;
 
 			// TO-DO: If this is the last expected message, then identify

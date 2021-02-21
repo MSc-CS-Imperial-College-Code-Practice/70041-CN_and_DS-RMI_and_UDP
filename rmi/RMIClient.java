@@ -50,9 +50,8 @@ public class RMIClient {
 		// TO-DO: Attempt to send messages the specified number of times
 			
 			for(int i=0; i<numMessages; i++) {
-				// Create variable "msg" from Class MessageInfo with data that 
-				// we want to serialize for sending it to a Remote Objecjt (RMI 
-				// Server)
+				// Create variable "msg" from Class MessageInfo that holds data 
+				// tht will be send by RMI Client
 				MessageInfo msg = new MessageInfo(numMessages,i);
 				// Invoke receiveMessage method on Remote Object (RMI Server) 
 				iRMIServer.receiveMessage(msg); 

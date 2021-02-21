@@ -48,7 +48,7 @@ public class UDPClient {
 														   // for sending mess-	
 														   // ages to UDP Server	
 		
-		// Printing message indicating that messages are being send to UDP 
+		// Printing message indicating that messages are being send to UDP
 		// Server
 		System.out.println("Sending messages to UDP Server...");
 	}
@@ -72,7 +72,9 @@ public class UDPClient {
 
 		// TO-DO: Send the messages to the server
 		for(int i=1; i<=countTo;i++){
-			MessageInfo clientPacket = new MessageInfo(countTo,i);
+			// Create variable "msg" from Class MessageInfo that holds data 
+			// tht will be send by UDP Client
+			MessageInfo clientPacket = new MessageInfo(countTo,i); // 
 			String messageToSend = new String();
 			messageToSend = clientPacket.toString();
 			this.send(messageToSend, serverAddr, recvPort);
