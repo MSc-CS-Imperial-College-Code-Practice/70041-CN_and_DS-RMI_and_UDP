@@ -64,15 +64,17 @@ public class UDPServer {
 				System.out.println("Efficiency: " + df.format(Efficiency));
 				System.out.println("Closing connection...");
 				
-				// After finishing set totalMessages to default value and close
-				// receivig socket from UDP Server
-				this.totalMessages = -1;
-				this.recvSoc.close();
+				
 
 			} catch (Exception e) {
 				this.close = true;
 				System.out.println("Closing connection: " + e.getMessage());
 			}
+
+			// After finishing set totalMessages to default value and close
+			// receivig socket from UDP Server
+			this.totalMessages = -1;
+			this.recvSoc.close();
 		
 		}
 	}

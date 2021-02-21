@@ -73,7 +73,7 @@ public class UDPClient {
 		// TO-DO: Send the messages to the server
 		for(int i=1; i<=countTo;i++){
 			// Create variable "msg" from Class MessageInfo that holds data 
-			// tht will be send by UDP Client
+			// that will be send by UDP Client
 			MessageInfo clientPacket = new MessageInfo(countTo,i); // 
 			String messageToSend = new String();
 			messageToSend = clientPacket.toString();
