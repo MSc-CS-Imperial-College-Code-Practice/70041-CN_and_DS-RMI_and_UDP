@@ -14,27 +14,34 @@ public class UDPClient {
 	private DatagramSocket sendSoc;
 
 	public static void main(String[] args) {
-		InetAddress	serverAddr = null;
-		int	recvPort;
-		int countTo;
-		String message;
+		InetAddress	serverAddr = null ; // IP address from UDP server
+		int	recvPort;                   // receiving port from UDP Server
+		int countTo;					// number of meesgaes going that will be
+										//  sent to UDP server
+		String message;					// message to send to UDP server
 
-		// Get the parameters
+		
+		// Get paramaters for serverAddr, recvPort and countTo from command 
+		// line arguments the parameters
 		if (args.length < 3) {
-			System.err.println("Arguments required: server name/IP, recv port, message count");
+			System.err.println("Arguments required: server name/IP, recv " + 
+							   "port, message count");
 			System.exit(-1);
 		}
 
 		try {
-			serverAddr = InetAddress.getByName(args[0]);
+			serverAddr = InetAddress.getByName(args[0]); // initialiaze UDP
+														 // server IP address
 
 		} catch (Exception e) {
 			System.out.println("UDP Client Error: " + e.getMessage());
 			e.printStackTrace();
-			System.exit(-1); // Erase???
 		}
+		
 		recvPort = Integer.parseInt(args[1]);
 		countTo = Integer.parseInt(args[2]);
+
+		
 
 
 		// TO-DO: Construct UDP client class and try to send messages
