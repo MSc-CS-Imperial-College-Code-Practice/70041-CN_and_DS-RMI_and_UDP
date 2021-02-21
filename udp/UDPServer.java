@@ -43,7 +43,7 @@ public class UDPServer {
 				
 				pacData = new byte[10];	  	  // buffer for incoming data packets
 				pacSize = pacData.length;     // length of each packet
-				this.recvSoc.setSoTimeout(10000);  // Set timeout for reciving socket
+				this.recvSoc.setSoTimeout(30000);  // Set timeout for reciving socket
 
 				pac = new DatagramPacket(pacData, pacSize);  // DatagramPacket object receiving
 																// for receiving data packets
