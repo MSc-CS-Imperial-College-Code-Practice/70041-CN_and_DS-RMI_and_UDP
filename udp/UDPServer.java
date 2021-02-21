@@ -110,12 +110,9 @@ public class UDPServer {
 		}catch (Exception e) {
 			System.out.println("UDP Server Error: " + e.getMessage());
 			e.printStackTrace();
-		}
-
-		
+		}		
 	}
-
-
+	
 	public UDPServer(int rp) {
 		// TO-DO: Initialise UDP socket for receiving data
 	
